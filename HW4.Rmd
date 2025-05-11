@@ -18,14 +18,7 @@ library(tidyverse)
 library(shiny)
 
 load("C:\\Users\\Owner\\SURV675_HW4\\WV6_Data_R_v20201117.rdata")
-```
 
-
-
-
-2. Your app has only one input: the country. It should have four sections or tabs:
-
-```{r}
 dat.work <- WV6_Data_R_v20201117 
 
 #Country
@@ -122,10 +115,9 @@ dat.clean <- dat.work %>%
   ) 
 
 dat.clean <- cbind(dat.clean, Country)
-```
+
 
 # Creating Smaller Datasets 
-```{r}
 Dem <- dat.clean %>% 
   select(
     Country,
@@ -165,9 +157,15 @@ Sci <- dat.clean %>%
 ```
 
 # Section B
+## Attitudes towards Democracy
 ```{r}
 #  • plot the averages (proportions by category for news) of the questions in that section for the country
-#    selected (i.e., if they select Algeria shows the graph just for Algeria)
+#    selected (i.e., if they select Algeria shows the graph just for Algeria) 
+Dem %>% 
+  filter(Country == "Algeria") %>% 
+  select(-Country) %>% 
+  summarise_all(mean, na.rm = TRUE) 
+
 #  • a table with the averages (proportions by category for news) of the questions in that section for the
 #    country selected
 #  • a similar table as above but with the information on the entire WVS sample (*static?*)
@@ -177,9 +175,30 @@ Sci <- dat.clean %>%
 ```
 
 # Section C
+## News Consumption
 ```{r}
 #  • plot the averages (proportions by category for news) of the questions in that section for the country
 #    selected (i.e., if they select Algeria shows the graph just for Algeria)
+News %>% 
+  filter(Country == "Algeria") %>% 
+  select(-Country) %>% 
+  summarise_all(mean, na.rm = TRUE) 
+
+News %>%
+  ggplot(aes(time, y = health)) +
+    geom_point(alpha = 0.15,
+      position = position_jitter(width = .48, height = .45), 
+      color = "deepskyblue4") +
+    stat_summary(aes(group = 1), fun = mean,
+      geom = "smooth", 
+      color = "goldenrod1",
+      linetype = 1,
+      linewidth = 3) +
+  theme_classic() +
+    labs(x = "Time", y = "Health Rating",
+        title = "Figure 1. 
+        Average Change of Health Ratings Over Time",
+        caption = "Data from HRS Waves '96, '98 & '00")
 #  • a table with the averages (proportions by category for news) of the questions in that section for the
 #    country selected
 #  • a similar table as above but with the information on the entire WVS sample (*static?*)
@@ -189,6 +208,7 @@ Sci <- dat.clean %>%
 ```
 
 # Section D
+## Attitudes towards Science
 ```{r}
 #  • plot the averages (proportions by category for news) of the questions in that section for the country
 #    selected (i.e., if they select Algeria shows the graph just for Algeria)
