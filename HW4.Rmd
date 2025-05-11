@@ -1,0 +1,55 @@
+---
+title: "HW4"
+output: html_document
+---
+
+In this assignment you will produce a dashboard that lets readers explore data from the World Value Study
+(WVS).
+
+Your submission will again be a GitHub repo that will include the README and a script that
+runs and creates the app.
+
+1. Download the World Value Study (wave 6) from here: http://www.worldvaluessurvey.org/WVSDocumentationWV6.jsp
+
+2. Your app has only one input: the country. It should have four sections or tabs:
+  a. Overview: here you can say what is the aim of the app and guide the user in how to navigate it (10%)
+  b. Exploring attitudes to democracy (V228A-V228I) (20%)
+  c. Exploring news consumption (V217-V224) (20%)
+  d. Exploring attitudes to science (V192-197) (20%)
+  
+Sections b, c and d all have three things inside:
+  • plot the averages (proportions by category for news) of the questions in that section for the country
+    selected (i.e., if they select Algeria shows the graph just for Algeria)
+  • a table with the averages (proportions by category for news) of the questions in that section for the
+    country selected
+  • a similar table as above but with the information on the entire WVS sample (*static?*)
+
+The results in sections b, c and d should change depending on the country input (except the last table in
+each section which is the same for all the countries).
+
+3. Make the tables and figures interactive (10%)
+
+4. Presentation (10%). Tables and graphs are easy to read. Overview section and GitHub README
+are well written and useful.
+
+5. Publish app on www.shinyapps.io (10%). Include the link to the app in the readme file.
+
+
+Top tips
+• You might want to separate the process of cleaning the data and the app. As such, you might want
+to make a R script for all the preparation that saves all the objects you need and a script that just
+includes the things needed to run the shiny app.
+• You might want to prepare all the graphs and tables in R before putting them in Shiny to make sure
+they work.
+• You might want to consider using Shinydashboard to help organize the app and make the different tabs.
+You can also check out this link: https://shiny.rstudio.com/articles/dashboards.html
+• You might want to make reactives that summarizes the country level information needed for the plots
+and tables.
+• To make tables interactive use dataTableOutput/renderDataTable. For interactive graphs use
+renderPlotly/plotlyOutput. On how to make a ggplot into a shiny plot check out this link:
+https://stackoverflow.com/questions/37663854/convert-ggplot-object-to-plotly-in-shiny-application
+• It is easy to publish a shiny app from rstudio. After you run the app just press the “publish” button.
+You will need to make an account on: https://www.shinyapps.io/
+
+
+
