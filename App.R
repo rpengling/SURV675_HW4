@@ -1,6 +1,37 @@
 # SURV675 HW4
 
 library(shiny)
+library(shinydashboard)
+library(tidyverse) 
+library(vroom)
+
+
+
+
+
+shinyUI(
+  dashboardPage(
+    dashboardHeader(title = " ", titleWidth = 500, disable = FALSE), 
+    dashboardSidebar(" ", collapsed = FALSE, disable = FALSE ), 
+    dashboardBody(" ")
+  )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ui <- fluidPage(
   
@@ -11,6 +42,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
 
 
 
