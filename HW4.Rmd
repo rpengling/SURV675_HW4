@@ -212,14 +212,12 @@ AllComb_Fin <- AllComb %>%
     names_to = "Response",
     values_to = "Value"
   ) %>%
-  mutate(Response = as.integer(gsub("Prop", "", Response))) %>%
   pivot_wider(
     names_from = Variable,
     values_from = Value
   )
 
 AllComb_Fin
-
 ```
 
 
@@ -248,113 +246,6 @@ The Data page will display the full dataset used for this app. To differentiate 
 Citation for data used: 
 Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2018. World Values Survey: Round Six - Country-Pooled Datafile. Madrid, Spain & Vienna, Austria: JD Systems Institute & WVSA Secretariat. doi.org/10.14281/18241.8
 
-
-
-
-# Section B
-## Attitudes towards Democracy
-```{r}
-#  • plot the averages (proportions by category for news) of the questions in that section for the country
-#    selected (i.e., if they select Algeria shows the graph just for Algeria) 
-Dat %>% 
-  group_by(Country) %>%
-  summarise_all(max, na.rm = T)
-
-#  • a table with the averages (proportions by category for news) of the questions in that section for the
-#    country selected
-#  • a similar table as above but with the information on the entire WVS sample (*static?*)
-    
-#The results in sections b, c and d should change depending on the country input (except the last table in
-#each section which is the same for all the countries).
-```
-
-# Section C
-## News Consumption
-```{r}
-#  • plot the averages (proportions by category for news) of the questions in that section for the country
-#    selected (i.e., if they select Algeria shows the graph just for Algeria)
-News %>% 
-  filter(Country == "Algeria") %>% 
-  select(-Country) %>% 
-  summarise_all(mean, na.rm = TRUE) 
-
-News %>%
-  ggplot(aes(time, y = health)) +
-    geom_point(alpha = 0.15,
-      position = position_jitter(width = .48, height = .45), 
-      color = "deepskyblue4") +
-    stat_summary(aes(group = 1), fun = mean,
-      geom = "smooth", 
-      color = "goldenrod1",
-      linetype = 1,
-      linewidth = 3) +
-  theme_classic() +
-    labs(x = "Time", y = "Health Rating",
-        title = "Figure 1. 
-        Average Change of Health Ratings Over Time",
-        caption = "Data from HRS Waves '96, '98 & '00")
-#  • a table with the averages (proportions by category for news) of the questions in that section for the
-#    country selected
-#  • a similar table as above but with the information on the entire WVS sample (*static?*)
-    
-#The results in sections b, c and d should change depending on the country input (except the last table in
-#each section which is the same for all the countries).
-```
-
-
-
-# Section D
-## Attitudes towards Science
-```{r}
-#  • plot the averages (proportions by category for news) of the questions in that section for the country
-#    selected (i.e., if they select Algeria shows the graph just for Algeria)
-#  • a table with the averages (proportions by category for news) of the questions in that section for the
-#    country selected
-#  • a similar table as above but with the information on the entire WVS sample (*static?*)
-    
-#The results in sections b, c and d should change depending on the country input (except the last table in
-#each section which is the same for all the countries).
-```
-
-
-  a. Overview: here you can say what is the aim of the app and guide the user in how to navigate it (10%)
-  b. Exploring attitudes to democracy (V228A-V228I) (20%)
-  c. Exploring news consumption (V217-V224) (20%)
-  d. Exploring attitudes to science (V192-197) (20%)
-  
-Sections b, c and d all have three things inside:
-  • plot the averages (proportions by category for news) of the questions in that section for the country
-    selected (i.e., if they select Algeria shows the graph just for Algeria)
-  • a table with the averages (proportions by category for news) of the questions in that section for the
-    country selected
-  • a similar table as above but with the information on the entire WVS sample (*static?*)
-
-The results in sections b, c and d should change depending on the country input (except the last table in
-each section which is the same for all the countries).
-
-3. Make the tables and figures interactive (10%)
-
-4. Presentation (10%). Tables and graphs are easy to read. Overview section and GitHub README
-are well written and useful.
-
-5. Publish app on www.shinyapps.io (10%). Include the link to the app in the readme file.
-
-
-Top tips
-• You might want to separate the process of cleaning the data and the app. As such, you might want
-to make a R script for all the preparation that saves all the objects you need and a script that just
-includes the things needed to run the shiny app.
-• You might want to prepare all the graphs and tables in R before putting them in Shiny to make sure
-they work.
-• You might want to consider using Shinydashboard to help organize the app and make the different tabs.
-You can also check out this link: https://shiny.rstudio.com/articles/dashboards.html
-• You might want to make reactives that summarizes the country level information needed for the plots
-and tables.
-• To make tables interactive use dataTableOutput/renderDataTable. For interactive graphs use
-renderPlotly/plotlyOutput. On how to make a ggplot into a shiny plot check out this link:
-https://stackoverflow.com/questions/37663854/convert-ggplot-object-to-plotly-in-shiny-application
-• It is easy to publish a shiny app from rstudio. After you run the app just press the “publish” button.
-You will need to make an account on: https://www.shinyapps.io/
 
 
 

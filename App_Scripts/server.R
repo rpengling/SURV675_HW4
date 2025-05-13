@@ -4,6 +4,7 @@ library(tidyverse)
 library(vroom) 
 library(plotly)
 library(DT)
+library(here)
 
 
 shinyServer(function(input, output, session){
@@ -146,7 +147,7 @@ shinyServer(function(input, output, session){
   
   #Input widget 
   output$inputwidget <- renderUI({
-    selectInput(inputId = "selected", label = "Select a Country", choices = unique(Dat$Country))
+    selectInput("selected", "Select a Country:", choices = unique(Dat$Country), selected = unique(Dat$Country)[1])
   })
 
 
