@@ -81,7 +81,7 @@ Country <- dat.work %>%
       V2 == 860 ~ "Uzbekistan",
       V2 == 887 ~ "Yemen"))
     ) %>% 
-  rename(Country = V2)
+  rename(Country = V2) 
 
 
 #Democracy 
@@ -115,6 +115,35 @@ dat.clean <- dat.work %>%
   ) 
 
 dat.clean <- cbind(dat.clean, Country)
+
+dat.clean <- dat.clean %>% drop_na(Country)
+
+Dat <- dat.clean %>% 
+  select(
+    Country,
+    D_Choice, 
+    D_Threatened, 
+    D_Rich, 
+    D_Fair, 
+    D_Journalists, 
+    D_Bribed, 
+    D_BiasedTV, 
+    D_Opponents, 
+    D_Count,
+    N_Paper,
+    N_Magazine,
+    N_TV, 
+    N_Radio, 
+    N_CellPhone, 
+    N_Email, 
+    N_Internet,
+    N_Talking,
+    S_LifeBetter, 
+    S_Oppertunities, 
+    S_Faith, 
+    S_Morals, 
+    S_Unimportant, 
+    S_World)
 
 
 # Creating Smaller Datasets 
@@ -156,15 +185,60 @@ Sci <- dat.clean %>%
     S_World )
 ```
 
+
+```{r}
+# Reshape to long format
+Long.News <- News %>%
+  pivot_longer(
+    cols = 2:9,
+    names_to = "Variable",
+    values_to = "Response"
+  )
+
+# Get total counts per country
+cont.total <- News %>%
+  count(Country) %>%
+  deframe()
+
+# Calculate proportions for each response value (1 to 5) 
+AlgComb <- Long.News %>%
+  filter(Country == "Algeria") %>%
+  group_by(Variable, Response) %>%
+  count() %>%
+  mutate(Prop = round(n / cont.total["Algeria"], 4)) %>%
+  select(Variable, Response, Prop) %>%
+  pivot_wider(names_from = Response, values_from = Prop, names_prefix = "Prop") 
+
+# Pivot long then wide
+AlgComb_Fin <- AlgComb %>%
+  pivot_longer(
+    cols = starts_with("Prop"),
+    names_to = "Response",
+    values_to = "Value"
+  ) %>%
+  mutate(Response = as.integer(gsub("Prop", "", Response))) %>%
+  pivot_wider(
+    names_from = Variable,
+    values_from = Value
+  )
+
+AlgComb_Fin
+
+col_sums <- AlgComb_Fin %>%
+  summarise(across(everything(), sum))
+
+col_sums
+```
+
+
 # Section B
 ## Attitudes towards Democracy
 ```{r}
 #  • plot the averages (proportions by category for news) of the questions in that section for the country
 #    selected (i.e., if they select Algeria shows the graph just for Algeria) 
-Dem %>% 
-  filter(Country == "Algeria") %>% 
-  select(-Country) %>% 
-  summarise_all(mean, na.rm = TRUE) 
+Dat %>% 
+  group_by(Country) %>%
+  summarise_all(max, na.rm = T)
 
 #  • a table with the averages (proportions by category for news) of the questions in that section for the
 #    country selected
@@ -206,6 +280,8 @@ News %>%
 #The results in sections b, c and d should change depending on the country input (except the last table in
 #each section which is the same for all the countries).
 ```
+
+
 
 # Section D
 ## Attitudes towards Science
