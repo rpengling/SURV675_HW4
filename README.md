@@ -1,5 +1,5 @@
 # SURV675_HW4
-Repository for SURV675's Homework 4 assignemnt -- creating an interactive Shiny app. 
+## Repository for SURV675's Homework 4 assignemnt -- creating an interactive Shiny app. 
 
 Welcome! This project is designed to let app users explore data from the World Value Study's 2006 Wave. Specifically, we were asked to accomplish the following: 
 
