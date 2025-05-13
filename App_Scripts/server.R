@@ -10,7 +10,8 @@ shinyServer(function(input, output, session){
   
   #Datatable
   output$mydatatable <- DT::renderDT({
-    head(Dat)
+    Dat %>%
+      DT::datatable(options = list(scrollX = T))
   })
 
 
@@ -36,15 +37,14 @@ shinyServer(function(input, output, session){
   
   #News by Country 
   output$new <- renderPlotly({
-    plot_data <- News %>%
-      dplyr::filter(Country == input$selected) %>%
+    plot_data <- AllComb_Fin %>%
+      dplyr::filter(Country == input$selected) %>% 
+      ungroup() %>%
       dplyr::select(-Country) %>%
       pivot_longer(
-        cols = everything(), 
+        cols = 2:9, 
         names_to = "Variable", 
-        values_to = "Response") %>%
-      group_by(Variable, Response) %>%
-      summarise(Proportion = n() / nrow(News)) %>%
+        values_to = "Proportion") %>%
       mutate(
         Variable = stringr::str_remove(Variable, "^[N]_"))
     plot_ly(
@@ -99,11 +99,8 @@ shinyServer(function(input, output, session){
   })
   
   output$news <- DT::renderDT({
-    News %>% 
+    AllComb_Fin %>% 
       dplyr::filter(Country == input$selected) %>% 
-      dplyr::select(-Country) %>% 
-      summarise_all(mean, na.rm = TRUE) %>% 
-      round(2) %>% 
       rename_with(~ stringr::str_remove(., "^[DNS]_")) %>%
       DT::datatable(options = list(scrollX = T))
   })
@@ -130,7 +127,7 @@ shinyServer(function(input, output, session){
   
   
   output$bignew <- DT::renderDT({
-    PropNews%>%
+    AllComb_Fin %>%
       rename_with(~ stringr::str_remove(., "^[DNS]_")) %>%
       DT::datatable(options = list(scrollX = TRUE)) 
   })

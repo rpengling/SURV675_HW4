@@ -184,10 +184,7 @@ Sci <- dat.clean %>%
     S_Unimportant, 
     S_World )
 ```
-
-
 ```{r}
-# Reshape to long format
 Long.News <- News %>%
   pivot_longer(
     cols = 2:9,
@@ -200,17 +197,16 @@ cont.total <- News %>%
   count(Country) %>%
   deframe()
 
-# Calculate proportions for each response value (1 to 5) 
-AlgComb <- Long.News %>%
-  filter(Country == "Algeria") %>%
-  group_by(Variable, Response) %>%
+# Calculate proportions for each response value (1 to 5) for all countries
+AllComb <- Long.News %>%
+  group_by(Country, Variable, Response) %>%
   count() %>%
-  mutate(Prop = round(n / cont.total["Algeria"], 4)) %>%
-  select(Variable, Response, Prop) %>%
+  mutate(Prop = round(n / cont.total[Country], 4)) %>%
+  select(Country, Variable, Response, Prop) %>%
   pivot_wider(names_from = Response, values_from = Prop, names_prefix = "Prop") 
 
-# Pivot long then wide
-AlgComb_Fin <- AlgComb %>%
+# Pivot long then wide for each country
+AllComb_Fin <- AllComb %>%
   pivot_longer(
     cols = starts_with("Prop"),
     names_to = "Response",
@@ -222,13 +218,37 @@ AlgComb_Fin <- AlgComb %>%
     values_from = Value
   )
 
-AlgComb_Fin
+AllComb_Fin
 
-col_sums <- AlgComb_Fin %>%
-  summarise(across(everything(), sum))
-
-col_sums
 ```
+
+
+About Section: 
+  a. Overview: here you can say what is the aim of the app and guide the user in how to navigate it (10%)
+  b. Exploring attitudes to democracy (V228A-V228I) (20%)
+  c. Exploring news consumption (V217-V224) (20%)
+  d. Exploring attitudes to science (V192-197) (20%)
+  
+Sections b, c and d all have three things inside:
+  • plot the averages (proportions by category for news) of the questions in that section for the country
+    selected (i.e., if they select Algeria shows the graph just for Algeria)
+  • a table with the averages (proportions by category for news) of the questions in that section for the
+    country selected
+  • a similar table as above but with the information on the entire WVS sample 
+  
+  
+Welcome! This app is designed to let you explore data from the World Value Study's 2006 Wave. 
+
+Please use the sidebar menu to navigate through the different pages. Within the Graphs & Tables page, you will find Graphs, Tables, and All Countries. The Graphs and Tables sections will show you three different options: the average attitudes towards democracy, average news consumption, and the average attitudes towards science for the country you select. The All Countries section will show you the same information but for all countries in the dataset. Please note that some countries may not produce graphs and tables for all three options due to one or more question not being asked in that county's survey. 
+
+The Data page will display the full dataset used for this app. To differentiate between the different sections, variables starting with "D_" are the democracy questions, "N_" are news consumption, and "S_" are science. 
+
+"Click for Github Repository" will immediately open and navigate to the Github repository for this project where more information on the creation of this app can be located. 
+
+Citation for data used: 
+Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2018. World Values Survey: Round Six - Country-Pooled Datafile. Madrid, Spain & Vienna, Austria: JD Systems Institute & WVSA Secretariat. doi.org/10.14281/18241.8
+
+
 
 
 # Section B
