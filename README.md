@@ -3,17 +3,17 @@
 
 Welcome! This project is designed to let app users explore data from the World Value Study's 2006 Wave. Specifically, we were asked to accomplish the following: 
 
-  a. Overview: what is the aim of the app and how to navigate it 
-  b. Exploring attitudes to democracy  
-  c. Exploring news consumption 
-  d. Exploring attitudes to science 
+  + a. Overview: what is the aim of the app and how to navigate it 
+  + b. Exploring attitudes to democracy  
+  + c. Exploring news consumption 
+  + d. Exploring attitudes to science 
   
 Sections b, c and d all have three things inside:
-  • plot the averages (proportions by category for news) of the questions in that section for the country
+  + plot the averages (proportions by category for news) of the questions in that section for the country
     selected (i.e., if they select Algeria shows the graph just for Algeria)
-  • a table with the averages (proportions by category for news) of the questions in that section for the
+  + a table with the averages (proportions by category for news) of the questions in that section for the
     country selected
-  • a similar table as above but with the information on the entire WVS sample 
+  + a similar table as above but with the information on the entire WVS sample 
   
   
 ## Click [here](https://tdvnp2-rachel-engling.shinyapps.io/app_scripts/) to open the app. 
