@@ -16,11 +16,11 @@ Sections b, c and d all have three things inside:
   • a similar table as above but with the information on the entire WVS sample 
   
   
+## Click [here](https://tdvnp2-rachel-engling.shinyapps.io/app_scripts/) to open the app. 
 
 
 
-
-Data for this project was retrieved from *link*, cited below. 
+Data for this project was retrieved from the [World Value Survey](https://www.worldvaluesurvey.org/WVSDocumentationWV6.jsp), cited below. 
 
 Inglehart, R., C. Haerpfer, A. Moreno, C. Welzel, K. Kizilova, J. Diez-Medrano, M. Lagos, P. Norris, E. Ponarin & B. Puranen et al. (eds.). 2018. World Values Survey: Round Six - Country-Pooled Datafile. Madrid, Spain & Vienna, Austria: JD Systems Institute & WVSA Secretariat. doi.org/10.14281/18241.8
 
