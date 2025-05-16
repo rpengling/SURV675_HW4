@@ -16,7 +16,7 @@ Sections b, c and d all have three things inside:
   + a similar table as above but with the information on the entire WVS sample 
   
   
-## Click [here](https://tdvnp2-rachel-engling.shinyapps.io/app_scripts/) to open the app. 
+## Click [here](https://tdvnp2-r-eng.shinyapps.io/app_scripts/) to open the app. 
 
 
 
